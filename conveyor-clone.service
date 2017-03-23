@@ -1,0 +1,14 @@
+[Unit]
+Description=Conveyor Clone Server
+After=syslog.target network.target
+
+[Service]
+Type=notify
+NotifyAccess=all
+TimeoutStartSec=0
+Restart=always
+User=root
+ExecStart=/usr/bin/conveyor-clone --config-file /etc/conveyor/conveyor.conf
+
+[Install]
+WantedBy=multi-user.target

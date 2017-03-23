@@ -1,0 +1,3 @@
+Defaults:conveyor !requiretty
+
+conveyor ALL = (root) NOPASSWD: /usr/bin/conveyor-rootwrap /etc/conveyor/rootwrap.conf *
