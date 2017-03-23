@@ -136,16 +136,6 @@ install -p -D -m 644 %{SOURCE2} %{buildroot}%{_sysconfdir}/logrotate.d/conveyor
 install -d -m 755 %{buildroot}%{_localstatedir}/run/conveyor
 
 # Remove unneeded in production stuff
-# Install i18n .mo files (.po and .pot are not required)
-install -d -m 755 %{buildroot}%{_datadir}
-rm -f %{buildroot}%{python2_sitelib}/%{pypi_name}/locale/*/LC_*/%{pypi_name}*po
-rm -f %{buildroot}%{python2_sitelib}/%{pypi_name}/locale/*pot
-mv %{buildroot}%{python2_sitelib}/%{pypi_name}/locale %{buildroot}%{_datadir}/locale
-
-# Find language files
-%find_lang %{pypi_name} --all-name
-
-# Remove unneeded in production stuff
 rm -f %{buildroot}%{_bindir}/conveyor-debug
 rm -fr %{buildroot}%{python2_sitelib}/run_tests.*
 rm -f %{buildroot}/usr/share/doc/conveyor/README*
