@@ -55,7 +55,7 @@ Requires:       python-netaddr
 Requires:       python-oslo-cache >= 0.8.0
 Requires:       python-oslo-concurrency >= 2.30
 Requires:       python-oslo-config >= 3.4.0
-Requires:       python-oslo-ontext >= 3.4.0
+Requires:       python-oslo-context >= 3.4.0
 Requires:       python-oslo-db >= 4.1.0
 Requires:       python-oslo-i18n >= 2.1.0
 Requires:       python-oslo-log >= 1.14.0
@@ -186,7 +186,7 @@ exit 0
 %defattr(-, conveyor, conveyor, -)
 %dir %{_sharedstatedir}/conveyor
 
-%files -n python-conveyor -f %{pypi_name}.lang
+%files -n python-conveyor
 %{?!_licensedir: %global license %%doc}
 %license LICENSE
 %{python2_sitelib}/conveyor
