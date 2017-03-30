@@ -182,7 +182,6 @@ exit 0
 %{_bindir}/conveyor-*
 %{_unitdir}/*.service
 %{_datarootdir}/conveyor
-%{_mandir}/man1/conveyor*.1.gz
 
 %defattr(-, conveyor, conveyor, -)
 %dir %{_sharedstatedir}/conveyor
