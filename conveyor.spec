@@ -71,7 +71,7 @@ Requires:       python-oslo-versionedobjects >= 1.4.0
 Requires:       python-paste-deploy
 Requires:       python-paste
 Requires:       python-pbr
-Requires:       python-request
+Requires:       python-requests
 Requires:       python-routes
 Requires:       python-six >= 1.9.0
 Requires:       python-webob >= 1.2.3
