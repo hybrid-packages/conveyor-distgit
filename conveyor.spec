@@ -55,7 +55,7 @@ Requires:       python-netaddr
 Requires:       python-oslo-cache >= 0.8.0
 Requires:       python-oslo-concurrency >= 2.30
 Requires:       python-oslo-config >= 3.4.0
-Requires:       python-oslo-context >= 3.4.0
+Requires:       python-oslo-context >= 2.0.0
 Requires:       python-oslo-db >= 4.1.0
 Requires:       python-oslo-i18n >= 2.1.0
 Requires:       python-oslo-log >= 1.14.0
@@ -65,9 +65,9 @@ Requires:       python-oslo-policy >= 0.5.0
 Requires:       python-oslo-reports >= 0.6.0
 Requires:       python-oslo-rootwrap >= 0.6.0
 Requires:       python-oslo-serialization >= 2.1.0
-Requires:       python-oslo-service >= 2.1.0
+Requires:       python-oslo-service >= 1.0.0
 Requires:       python-oslo-utils >= 3.4.0
-Requires:       python-oslo-versionedobjects >= 2.1.0
+Requires:       python-oslo-versionedobjects >= 1.4.0
 Requires:       python-paste-deploy
 Requires:       python-paste
 Requires:       python-pbr
