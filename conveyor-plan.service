@@ -1,5 +1,5 @@
 [Unit]
-Description=Conveyor Manager Server
+Description=Conveyor Plan Server
 After=syslog.target network.target
 
 [Service]
@@ -8,7 +8,7 @@ NotifyAccess=all
 TimeoutStartSec=0
 Restart=always
 User=root
-ExecStart=/usr/bin/conveyor-manager --config-file /etc/conveyor/conveyor.conf
+ExecStart=/usr/bin/conveyor-plan --config-file /etc/conveyor/conveyor.conf
 
 [Install]
 WantedBy=multi-user.target

@@ -18,8 +18,8 @@ Source3:        conveyor.sudoers
 
 Source10:       conveyor-api.service
 Source11:       conveyor-clone.service
-Source12:       conveyor-manager.service
-Source13:       conveyor-resource.service
+Source12:       conveyor-resource.service
+Source13:       conveyor-plan.service
 
 BuildArch:		noarch
 BuildRequires:  intltool
@@ -123,8 +123,8 @@ install -p -D -m 755 etc/conveyor/rootwrap.d/*.filters %{buildroot}%{_sysconfdir
 # Install initscripts for conveyor services
 install -p -D -m 644 %{SOURCE10} %{buildroot}%{_unitdir}/conveyor-api.service
 install -p -D -m 644 %{SOURCE11} %{buildroot}%{_unitdir}/conveyor-clone.service
-install -p -D -m 644 %{SOURCE12} %{buildroot}%{_unitdir}/conveyor-manager.service
-install -p -D -m 644 %{SOURCE13} %{buildroot}%{_unitdir}/conveyor-resource.service
+install -p -D -m 644 %{SOURCE12} %{buildroot}%{_unitdir}/conveyor-resource.service
+install -p -D -m 644 %{SOURCE13} %{buildroot}%{_unitdir}/conveyor-plan.service
 
 # Install sudoers
 install -p -D -m 440 %{SOURCE3} %{buildroot}%{_sysconfdir}/sudoers.d/conveyor
@@ -143,27 +143,27 @@ rm -f %{buildroot}/usr/share/doc/conveyor/README*
 %pre -n python-%{pypi_name}
 getent group conveyor >/dev/null || groupadd -r conveyor
 if ! getent passwd conveyor >/dev/null; then
-    useradd -r -g conveyor -G conveyor -s /sbin/nologin -c "Conveyor Daemons" conveyor
+    useradd -r -g conveyor -G conveyor,nobody -d %{_sharedstatedir}/conveyor -s /sbin/nologin -c "Conveyor Daemons" conveyor
 fi
 exit 0
 
 %post
 %systemd_post conveyor-api
 %systemd_post conveyor-clone
-%systemd_post conveyor-manager
 %systemd_post conveyor-resource
+%systemd_post conveyor-plan
 
 %preun
 %systemd_preun conveyor-api
 %systemd_preun conveyor-clone
-%systemd_preun conveyor-manager
 %systemd_preun conveyor-resource
+%systemd_preun conveyor-plan
 
 %postun
 %systemd_postun_with_restart conveyor-api
 %systemd_postun_with_restart conveyor-clone
-%systemd_postun_with_restart conveyor-manager
 %systemd_postun_with_restart conveyor-resource
+%systemd_postun_with_restart conveyor-plan
 
 %files
 %dir %{_sysconfdir}/conveyor
