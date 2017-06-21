@@ -2,15 +2,15 @@
 %global with_doc %{!?_without_doc:1}%{?_without_doc:0}
 %global pypi_name conveyor
 
-Name:			conveyor
-Epoch:			1
-Version:		XXX
-Release:		XXX
-Summary:		ConveyorAgent
+Name:           conveyor
+Epoch:          1
+Version:        XXX
+Release:        XXX
+Summary:        Conveyor
 
-License:		ASL 2.0
-URL:   			https://github.com/Hybrid-Cloud/conveyor
-Source0:		https://github.com/Hybrid-Cloud/%{name}/%{name}-%{upstream_version}.tar.gz
+License:        ASL 2.0
+URL:            https://github.com/Hybrid-Cloud/conveyor
+Source0:        https://github.com/Hybrid-Cloud/%{name}/%{name}-%{upstream_version}.tar.gz
 
 Source1:        conveyor-dist.conf
 Source2:        conveyor.logrotate
@@ -21,12 +21,44 @@ Source11:       conveyor-clone.service
 Source12:       conveyor-resource.service
 Source13:       conveyor-plan.service
 
-BuildArch:		noarch
+BuildArch:      noarch
 BuildRequires:  intltool
 BuildRequires:  python2-devel
 BuildRequires:  python-setuptools
 BuildRequires:  python-pbr
 BuildRequires:  python-d2to1
+BuildRequires:  python-crypto
+BuildRequires:  python-cryptography
+BuildRequires:  python-conveyor-caaclient
+BuildRequires:  python-decorator
+BuildRequires:  python-cinderclient
+BuildRequires:  python-glanceclient
+BuildRequires:  python-greenlet
+BuildRequires:  python-heatclient
+BuildRequires:  python-iso8601
+BuildRequires:  python-keystoneclient
+BuildRequires:  python-keystonemiddleware
+BuildRequires:  python-lxml
+BuildRequires:  python-neutronclient
+BuildRequires:  python-novaclient
+BuildRequires:  python-oslo-cache
+BuildRequires:  python-oslo-concurrency
+BuildRequires:  python-oslo-config
+BuildRequires:  python-oslo-context
+BuildRequires:  python-oslo-db
+BuildRequires:  python-oslo-config
+BuildRequires:  python-oslo-log
+BuildRequires:  python-oslo-messaging
+BuildRequires:  python-osprofiler
+BuildRequires:  python-oslo-middleware
+BuildRequires:  python-oslo-policy
+BuildRequires:  python-oslo-reports
+BuildRequires:  python-oslo-rootwrap
+BuildRequires:  python-oslo-serialization
+BuildRequires:  python-oslo-service
+BuildRequires:  python-oslo-utils
+BuildRequires:  python-oslo-versionedobjects
+BuildRequires:  PyYAML
 
 Requires:       python-%{pypi_name} = %{epoch}:%{version}-%{release}
 
@@ -41,17 +73,26 @@ Conveyor
 %package -n python-%{pypi_name}
 Summary:        Conveyor Code
 
+Requires:       pyparsing >= 2.0.1
 Requires:       python-anyjson
 Requires:       python-babel
+Requires:       python-conveyor-caaclient
+Requires:       python-crypto
 Requires:       python-cryptography >= 1.0
 Requires:       python-decorator
 Requires:       python-eventlet >= 0.17.4
 Requires:       python-glanceclient >= 1:2.0.0
 Requires:       python-greenlet
+Requires:       python-heatclient >= 0.6.0
+Requires:       python-httplib2 >= 0.7.5
 Requires:       python-iso8601 >= 0.1.9
 Requires:       python-keystoneclient >= 1:1.6.0
 Requires:       python-keystonemiddleware >= 4.0.0
+Requires:       python-lxml >= 2.3
+Requires:       python-migrate >= 0.9.6
 Requires:       python-netaddr
+Requires:       python-oauth2client >= 1.5.0
+Requires:       python-os-brick >= 1.0.0
 Requires:       python-oslo-cache >= 0.8.0
 Requires:       python-oslo-concurrency >= 2.30
 Requires:       python-oslo-config >= 3.4.0
@@ -68,13 +109,22 @@ Requires:       python-oslo-serialization >= 2.1.0
 Requires:       python-oslo-service >= 1.0.0
 Requires:       python-oslo-utils >= 3.4.0
 Requires:       python-oslo-versionedobjects >= 1.4.0
+Requires:       python-osprofiler >= 1.1.0
+Requires:       python-paramiko
 Requires:       python-paste-deploy
 Requires:       python-paste
 Requires:       python-pbr
 Requires:       python-requests
+Requires:       python-retrying >= 1.2.3
 Requires:       python-routes
+Requires:       python-rtslib >= 2.1
+Requires:       python-simplejson >= 2.2.0
 Requires:       python-six >= 1.9.0
+Requires:       python-sqlalchemy >= 1.0.10
+Requires:       python-stevedore >= 1.5.0
+Requires:       python-suds
 Requires:       python-webob >= 1.2.3
+Requires:       pytz
 
 %description -n python-%{pypi_name}
 Conveyor Code
@@ -101,6 +151,8 @@ sed -i 's/%{version}.%{milestone}/%{version}/' PKG-INFO
 rm -rf {test-,}requirements.txt tools/{pip,test}-requires
 
 %build
+PYTHONPATH=. oslo-config-generator --config-file=etc/conveyor/conveyor-config-generator.conf
+
 %{__python2} setup.py build
 
 %install
@@ -114,7 +166,7 @@ install -d -m 755 %{buildroot}%{_sharedstatedir}/conveyor
 
 # Install config files
 install -p -D -m 640 %{SOURCE1} %{buildroot}%{_datarootdir}/conveyor/conveyor-dist.conf
-install -p -D -m 755 etc/conveyor/conveyor.conf %{buildroot}%{_sysconfdir}/conveyor/conveyor.conf
+install -p -D -m 755 etc/conveyor/conveyor.conf.sample %{buildroot}%{_sysconfdir}/conveyor/conveyor.conf
 install -p -D -m 755 etc/conveyor/api-paste.ini %{buildroot}%{_sysconfdir}/conveyor/api-paste.ini
 install -p -D -m 755 etc/conveyor/policy.json %{buildroot}%{_sysconfdir}/conveyor/policy.json
 install -p -D -m 755 etc/conveyor/rootwrap.conf %{buildroot}%{_sysconfdir}/conveyor/rootwrap.conf
